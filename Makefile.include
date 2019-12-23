@@ -1,0 +1,28 @@
+#CFLAGS += -D MKLFFT=1 -D ALTCPU=1 -D PROJECTOR_NO_TEXTURES=1 -D HAVE_SINCOS=1 -D HAVE_TIFF=1
+CXXFLAGS += -D ALTCPU=1 -D PROJECTOR_NO_TEXTURES=1 -D HAVE_SINCOS=1
+USE_INTEL_MKL := 1
+USE_INTEL_TBB := 1
+USE_INTEL_MPI := 1
+ifdef USE_INTEL_MKL
+##DEFINES += -D MKL_ILP64=1
+CPPFLAGS += -D MKLFFT=1 -I /opt/intel/compilers_and_libraries_2019/linux/mkl/include/fftw
+LDFLAGS += -L /opt/intel/compilers_and_libraries_2019/linux/mkl/lib/intel64
+##LIBS += -l mkl_intel_ilp64 -l mkl_gnu_thread -l mkl_core
+#LIBS += -l mkl_intel_lp64 -l mkl_gnu_thread -l mkl_core
+LIBS += -Wl,--as-needed -l mkl_rt
+else
+LIBS += -l fftw3 -l fftw3_threads
+endif
+ifdef USE_INTEL_TBB
+CPPFLAGS += -I /opt/intel/compilers_and_libraries_2019.3.199/linux/tbb/include
+LDFLAGS += -L /opt/intel/compilers_and_libraries_2019.3.199/linux/tbb/lib/intel64/gcc4.7
+LIBS += -l tbb
+else
+LIBS +=
+endif
+ifdef USE_INTEL_MPI
+CPPFLAGS += -I /opt/intel/compilers_and_libraries_2019/linux/mpi/intel64/include
+LDFLAGS += -L /opt/intel/compilers_and_libraries_2019/linux/mpi/intel64/lib/release -L /opt/intel/compilers_and_libraries_2019/linux/mpi/intel64/libfabric/lib
+#LIBS += -Wl,--as-needed -l mpi -l fabric
+MPI_LIBS += -Wl,--as-needed -l mpi -l fabric
+endif
