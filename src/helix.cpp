@@ -3981,17 +3981,15 @@ void simulateHelicalSegments(
 	MD.deactivateLabel(EMDL_ORIENT_ROT_PRIOR);
 	FOR_ALL_OBJECTS_IN_METADATA_TABLE(MD)
 	{
-    	MD.setValue(EMDL_ORIENT_ROT, 0.);
-    	if (!is_3d_tomo)
-    	{
-    		MD.setValue(EMDL_ORIENT_TILT, 90.);
-    		MD.setValue(EMDL_ORIENT_TILT_PRIOR, 90.);
-    	}
-    	MD.setValue(EMDL_ORIENT_ORIGIN_X, 0.);
-    	MD.setValue(EMDL_ORIENT_ORIGIN_Y, 0.);
-    	if (is_3d_tomo)
-    		MD.setValue(EMDL_ORIENT_ORIGIN_Z, 0.);
-
+    		MD.setValue(EMDL_ORIENT_ROT, 0.);
+	    	if (!is_3d_tomo)
+    		{
+    			MD.setValue(EMDL_ORIENT_TILT, 90.);
+	    		MD.setValue(EMDL_ORIENT_TILT_PRIOR, 90.);
+	    	}
+    		MD.setValue(EMDL_ORIENT_ORIGIN_X, 0.);
+	    	MD.setValue(EMDL_ORIENT_ORIGIN_Y, 0.);
+    		if (is_3d_tomo) MD.setValue(EMDL_ORIENT_ORIGIN_Z, 0.);
 		MD.getValue(EMDL_IMAGE_NAME, fn_mic);
 		fn_ext = fn_mic.getExtension();
 		fn_mic = fn_mic.withoutExtension() + "_norm." + fn_ext;
