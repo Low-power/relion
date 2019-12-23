@@ -1,0 +1,8 @@
+RELION_SINGLE_PRECISION	use single precision for legacy CPU code
+ACC_DOUBLE_PRECISION	use double precision for accelerated CPU code
+MKLFFT			use Intel Math Kernel Library for FFT
+FAST_CENTERFFT		set this if using Intel C++ compiler
+ALTCPU			enable accelerated CPU code
+PROJECTOR_NO_TEXTURES	disable texture interpolation, set this if accelerated CPU code is enabled
+HAVE_SINCOS		set this if sincos(1) is available (for example from GLIBC)
+HAVE_TIFF		use external libtiff
