@@ -1,18 +1,24 @@
+CC := gcc
+CXX := g++
 #CC := gcc-9.2
 #CXX := g++-9.2
-CC := gcc-10-20191222
-CXX := g++-10-20191222
+#CC := gcc-10-20191222
+#CXX := g++-10-20191222
 #CC := icc
 #CXX := icpc -cxxlib=/usr
 
+CFLAGS += -march=native
+CXXFLAGS += -march=native
 #CFLAGS += -march=knl
 #CXXFLAGS += -march=knl
-CFLAGS += -march=skylake-avx512
-CXXFLAGS += -march=skylake-avx512
+#CFLAGS += -march=skylake-avx512
+#CXXFLAGS += -march=skylake-avx512
 #CFLAGS += -xKNL
 #CXXFLAGS += -xKNL
 #CFLAGS += -xCORE-AVX512
 #CXXFLAGS += -xCORE-AVX512
+#CFLAGS += -xSKYLAKE-AVX512
+#CXXFLAGS += -xSKYLAKE-AVX512
 
 # Define this if using Intel compilers
 #CPPFLAGS += -D FAST_CENTERFFT=1
