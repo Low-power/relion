@@ -1426,12 +1426,24 @@ void MlOptimiser::initialiseGeneral(int rank)
 	if (parser.checkForErrors(verb))
 		REPORT_ERROR("Errors encountered on the command line (see above), exiting...");
 
-#ifdef RELION_SINGLE_PRECISION
-        if (verb > 0)
-            std::cout << " Running CPU instructions in single precision. Runs might not be exactly reproducible." << std::endl;
+#ifdef ALTCPU
+        if(do_cpu) {
+#ifdef ACC_DOUBLE_PRECISION
+            if(verb > 0) std::cout << " Running accelerated CPU instructions in double precision." << std::endl;
 #else
-        if (verb > 0)
-            std::cout << " Running CPU instructions in double precision. " << std::endl;
+            if(verb > 0) std::cout << " Running accelerated CPU instructions in single precision." << std::endl;
+#endif
+	} else {
+#endif	/* ALTCPU */
+#ifdef RELION_SINGLE_PRECISION
+            if (verb > 0)
+                std::cout << " Running CPU instructions in single precision. Runs might not be exactly reproducible." << std::endl;
+#else
+            if (verb > 0)
+                std::cout << " Running CPU instructions in double precision. " << std::endl;
+#endif
+#ifdef ALTCPU
+        }
 #endif
 
     // print symmetry operators or metadata labels before doing anything else...

@@ -1,14 +1,14 @@
-CC := gcc
-CXX := g++
+#CC := gcc
+#CXX := g++
 #CC := gcc-9.2
 #CXX := g++-9.2
 #CC := gcc-10-20191222
 #CXX := g++-10-20191222
-#CC := icc
-#CXX := icpc -cxxlib=/usr
+CC := icc
+CXX := icpc -cxxlib=/usr
 
-CFLAGS += -march=native
-CXXFLAGS += -march=native
+#CFLAGS += -march=native
+#CXXFLAGS += -march=native
 #CFLAGS += -march=knl
 #CXXFLAGS += -march=knl
 #CFLAGS += -march=skylake-avx512
@@ -16,12 +16,14 @@ CXXFLAGS += -march=native
 #CFLAGS += -xKNL
 #CXXFLAGS += -xKNL
 #CFLAGS += -xCORE-AVX512
+CFLAGS += -xCORE-AVX2
 #CXXFLAGS += -xCORE-AVX512
+CXXFLAGS += -xCORE-AVX2
 #CFLAGS += -xSKYLAKE-AVX512
 #CXXFLAGS += -xSKYLAKE-AVX512
 
 # Define this if using Intel compilers
-#CPPFLAGS += -D FAST_CENTERFFT=1
+CPPFLAGS += -D FAST_CENTERFFT=1
 
 #CPPFLAGS += -D MKLFFT=1 -D ALTCPU=1 -D PROJECTOR_NO_TEXTURES=1 -D HAVE_SINCOS=1 -D HAVE_TIFF=1
 CPPFLAGS += -D ALTCPU=1 -D PROJECTOR_NO_TEXTURES=1 -D HAVE_SINCOS=1
