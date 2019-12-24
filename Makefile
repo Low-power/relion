@@ -1,7 +1,8 @@
 include Makefile.include
 
 CFLAGS += -Wall -Wno-switch -fopenmp -std=gnu99 -O3 -I . $(CPPFLAGS)
-CXXFLAGS += -Wall -Wno-unused-function -Wno-unused-variable -Wno-sign-compare -Wno-unused-but-set-variable -Wno-stringop-truncation -Wno-reorder -Wno-switch -fopenmp -O3 -I . $(CPPFLAGS)
+CXXFLAGS += -Wall -Wno-unused-function -Wno-unused-variable -Wno-sign-compare -Wno-unused-but-set-variable -Wno-reorder -Wno-switch -fopenmp -std=gnu++0x -O3 -I . $(CPPFLAGS)
+#CXXFLAGS += -Wno-stringop-truncation
 LDFLAGS += -fopenmp
 LIBS +=
 
