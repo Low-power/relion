@@ -6,6 +6,8 @@ CXX := g++
 #CXX := g++-10-20191222
 #CC := icc
 #CXX := icpc -cxxlib=/usr
+#CC := mpiicc
+#CXX := mpiicpc -cxxlib=/usr
 
 CFLAGS += -march=native
 CXXFLAGS += -march=native
@@ -23,7 +25,7 @@ CXXFLAGS += -march=native
 # Define this if using Intel compilers
 #CPPFLAGS += -D FAST_CENTERFFT=1
 
-#CPPFLAGS += -D MKLFFT=1 -D ALTCPU=1 -D PROJECTOR_NO_TEXTURES=1 -D HAVE_SINCOS=1 -D HAVE_TIFF=1
+#CPPFLAGS += -D ALTCPU=1 -D PROJECTOR_NO_TEXTURES=1 -D HAVE_SINCOS=1 -D HAVE_TIFF=1
 CPPFLAGS += -D ALTCPU=1 -D PROJECTOR_NO_TEXTURES=1 -D HAVE_SINCOS=1
 USE_INTEL_MKL := 1
 USE_INTEL_TBB := 1

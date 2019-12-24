@@ -47,10 +47,8 @@ LIBRELION_OBJECTS := \
 	build/obj/multidim_array.o \
 	build/obj/numerical_recipes.o \
 	build/obj/parallel.o \
-	build/obj/particle_polisher.o \
-	build/obj/particle_polisher_mpi.o \
-	build/obj/particle_sorter.o \
-	build/obj/particle_sorter_mpi.o \
+	build/obj/particle_subtractor.o \
+	build/obj/pipeline_control.o \
 	build/obj/pipeline_jobs.o \
 	build/obj/pipeliner.o \
 	build/obj/postprocessing.o \
@@ -59,9 +57,11 @@ LIBRELION_OBJECTS := \
 	build/obj/projector.o \
 	build/obj/reconstructor.o \
 	build/obj/reconstructor_mpi.o \
+	build/obj/scheduler.o \
 	build/obj/strings.o \
 	build/obj/symmetries.o \
 	build/obj/tabfuncs.o \
+	build/obj/tiff_converter.o \
 	build/obj/time.o \
 	build/obj/transformations.o \
 	build/obj/acc/cpu/cpu_helper_functions.o \
@@ -73,6 +73,7 @@ LIBRELION_OBJECTS := \
 	build/obj/jaz/structure_tensor.o \
 	build/obj/jaz/slice_helper.o \
 	build/obj/jaz/obs_model.o \
+	build/obj/jaz/legacy_obs_model.o \
 	build/obj/jaz/new_ft.o \
 	build/obj/jaz/Fourier_helper.o \
 	build/obj/jaz/distribution_helper.o \
@@ -86,7 +87,6 @@ LIBRELION_OBJECTS := \
 	build/obj/jaz/motion/gp_motion_fit.o \
 	build/obj/jaz/motion/motion_helper.o \
 	build/obj/jaz/motion/motion_refiner.o \
-	build/obj/jaz/motion/bfactor_estimator.o \
 	build/obj/jaz/motion/motion_estimator.o \
 	build/obj/jaz/motion/alignment_set.o \
 	build/obj/jaz/motion/motion_param_estimator.o \
@@ -94,14 +94,16 @@ LIBRELION_OBJECTS := \
 	build/obj/jaz/motion/three_hyperparameter_fit.o \
 	build/obj/jaz/motion/frame_recombiner.o \
 	build/obj/jaz/fftw_helper.o \
-	build/obj/jaz/tomo_stack.o \
+	build/obj/jaz/tomo/tomo_stack.o \
 	build/obj/jaz/resampling_helper.o \
 	build/obj/jaz/local_motion_fit.o \
-	build/obj/jaz/imod_helper.o \
+	build/obj/jaz/tomo/imod_helper.o \
 	build/obj/jaz/volume_converter.o \
 	build/obj/jaz/complex_io.o \
-	build/obj/jaz/image_op.o \
-	build/obj/jaz/filter_helper.o \
+	build/obj/jaz/img_proc/image_op.o \
+	build/obj/jaz/img_proc/filter_helper.o \
+	build/obj/jaz/img_proc/color_helper.o \
+	build/obj/jaz/io/star_converter.o \
 	build/obj/jaz/ctf/equation2x2.o \
 	build/obj/jaz/ctf/ctf_refiner.o \
 	build/obj/jaz/ctf/magnification_estimator.o \
@@ -111,6 +113,10 @@ LIBRELION_OBJECTS := \
 	build/obj/jaz/ctf/tilt_estimator.o \
 	build/obj/jaz/ctf/tilt_helper.o \
 	build/obj/jaz/ctf/magnification_helper.o \
+	build/obj/jaz/ctf/aberration_estimator.o \
+	build/obj/jaz/ctf/bfactor_refiner.o \
+	build/obj/jaz/ctf/delocalisation_helper.o \
+	build/obj/jaz/ctf/modular_ctf_optimisation.o \
 	build/obj/jaz/convolution_helper.o \
 	build/obj/jaz/image_log.o \
 	build/obj/jaz/t_complex.o \
@@ -126,13 +132,12 @@ LIBRELION_OBJECTS := \
 	build/obj/jaz/vtk_helper.o \
 	build/obj/jaz/micrograph_handler.o \
 	build/obj/jaz/ctf_helper.o \
-	build/obj/jaz/refinement_program.o \
-	build/obj/jaz/frame_merge.o \
-	build/obj/jaz/backprojection_helper.o \
+	build/obj/jaz/tomo/backprojection_helper.o \
 	build/obj/jaz/damage_helper.o \
 	build/obj/jaz/Gaussian_pyramid.o \
 	build/obj/jaz/parallel_ft.o \
-	build/obj/jaz/projection_helper.o \
+	build/obj/jaz/tomo/projection_helper.o \
+	build/obj/jaz/complex_io.o \
 	build/obj/jaz/lbfgs/lbfgs.o \
 	build/obj/jaz/d3x3/dsyevv3.o \
 	build/obj/jaz/d3x3/slvsec3.o \
@@ -143,39 +148,46 @@ LIBRELION_OBJECTS := \
 	build/obj/jaz/d3x3/dsyevd3.o \
 	build/obj/jaz/d3x3/dsyevc3.o \
 	build/obj/jaz/d3x3/dsytrd3.o \
+	build/obj/jaz/math/Zernike.o \
 	build/obj/Healpix_2.15a/cxxutils.o \
-	build/obj/Healpix_2.15a/healpix_base.o
+	build/obj/Healpix_2.15a/healpix_base.o \
+	build/obj/macros.o
 
 TARGETS := \
 	align_symmetry \
 	autopick \
 	autopick_mpi \
+	convert_star \
 	ctf_refine \
 	ctf_refine_mpi \
 	ctf_toolbox \
 	defocus_stats \
+	demodulate \
 	double_bfac_fit \
+	estimate_gain \
+	external_reconstruct \
 	find_tiltpairs \
 	flex_analyse \
 	flex_analyse_mpi \
 	helix_toolbox \
 	image_handler \
+	import \
 	interpolation_test \
 	localsym \
 	localsym_mpi \
 	mask_create \
-	motion_diff \
+	merge_particles \
 	motion_refine \
 	motion_refine_mpi \
-	motion_stats \
 	mrc2vtk \
 	paper_data_synth \
-	particle_polish \
-	particle_polish_mpi \
+	particle_FCC \
 	particle_reposition \
-	particle_sort \
-	particle_sort_mpi \
+	particle_select \
+	particle_subtract \
+	particle_subtract_mpi \
 	particle_symmetry_expand \
+	plot_delocalisation \
 	postprocess \
 	postprocess_mpi \
 	prepare_subtomo \
@@ -184,26 +196,33 @@ TARGETS := \
 	project \
 	reconstruct \
 	reconstruct_mpi \
-	ref_aberration_plot \
 	refine \
 	refine_mpi \
+	reposition \
 	run_ctffind \
 	run_ctffind_mpi \
 	run_motioncorr \
 	run_motioncorr_mpi \
+	scheduler \
 	stack_create \
-	star_combine \
-	star_compare \
 	star_handler \
 	tiltpair_plot
+
+TARGETS_WITH_TIFF := \
+	convert_to_tiff \
+	convert_to_tiff_mpi
 
 BUILD_DIRECTORIES := \
 	build/obj/acc/cpu/cpu_kernels \
 	build/obj/jaz/ctf \
 	build/obj/jaz/d3x3 \
+	build/obj/jaz/img_proc \
+	build/obj/jaz/io \
 	build/obj/jaz/lbfgs \
+	build/obj/jaz/math \
 	build/obj/jaz/motion \
 	build/obj/jaz/optimization \
+	build/obj/jaz/tomo \
 	build/obj/Healpix_2.15a \
 	build/obj/apps \
 	build/lib \
@@ -233,6 +252,9 @@ build/lib/librelion.a:	$(LIBRELION_OBJECTS)
 
 $(BUILD_DIRECTORIES):
 	mkdir -p $@
+
+build/obj/macros.cpp:	src/macros.cpp.in
+	sed "s/@GIT_SHA1@/`cut -c -7 \".git/\`sed 's/^ref: //' .git/HEAD\`\"`/" $< > $@
 
 build/obj/%.o:	src/%.c
 	$(CC) $(CFLAGS) -c $< -o $@
