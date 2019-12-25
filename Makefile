@@ -267,3 +267,5 @@ build/obj/%.o:	src/%.cc
 
 clean:
 	rm -rf build
+
+.PHONY:	build/obj/macros.cpp clean
