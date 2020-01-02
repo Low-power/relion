@@ -146,6 +146,13 @@ LIBRELION_OBJECTS := \
 	build/obj/Healpix_2.15a/cxxutils.o \
 	build/obj/Healpix_2.15a/healpix_base.o
 
+GUI_OBJECTS := \
+	build/obj/displayer.o \
+	build/obj/gui_entries.o \
+	build/obj/gui_jobwindow.o \
+	build/obj/gui_mainwindow.o \
+	build/obj/manualpicker.o
+
 TARGETS := \
 	align_symmetry \
 	autopick \
@@ -197,6 +204,12 @@ TARGETS := \
 	star_handler \
 	tiltpair_plot
 
+GUI_TARGETS := \
+	display \
+	maingui \
+	manualpick \
+	pipeliner
+
 BUILD_DIRECTORIES := \
 	build/obj/acc/cpu/cpu_kernels \
 	build/obj/jaz/ctf \
@@ -211,7 +224,12 @@ BUILD_DIRECTORIES := \
 
 default:	$(BUILD_DIRECTORIES) $(addprefix build/bin/relion_,$(TARGETS))
 
-.SECONDARY:	$(addprefix build/obj/apps/,$(addsuffix .o,$(TARGETS))) $(OBJECTS)
+gui:	$(addprefix build/bin/relion_,$(GUI_TARGETS))
+
+.SECONDARY:	$(addprefix build/obj/apps/,$(addsuffix .o,$(TARGETS) $(GUI_TARGETS))) $(OBJECTS)
+
+build/bin/relion_maingui:	build/obj/apps/maingui.o $(GUI_OBJECTS) build/lib/librelion.a
+	$(CXX) $(LDFLAGS) $^ -o $@ $(FLTK_LIBS) $(LIBS)
 
 build/bin/relion_flex_analyse:	build/obj/apps/flex_analyse.o build/lib/librelion.a
 	$(CXX) $(LDFLAGS) $^ -o $@ $(MPI_LIBS) $(LIBS)

@@ -20,6 +20,8 @@ CXXFLAGS += -march=native
 #CXXFLAGS += -march=skylake-avx512
 #CFLAGS += -xKNL
 #CXXFLAGS += -xKNL
+#CFLAGS += -xAVX
+#CXXFLAGS += -xAVX
 #CFLAGS += -xCORE-AVX512
 #CFLAGS += -xCORE-AVX2
 #CXXFLAGS += -xCORE-AVX512
@@ -28,7 +30,7 @@ CXXFLAGS += -march=native
 #CXXFLAGS += -xSKYLAKE-AVX512
 
 # Define this if using Intel compilers
-$CPPFLAGS += -D FAST_CENTERFFT=1
+#CPPFLAGS += -D FAST_CENTERFFT=1
 
 #CPPFLAGS += -D ALTCPU=1 -D PROJECTOR_NO_TEXTURES=1 -D HAVE_SINCOS=1 -D HAVE_TIFF=1
 CPPFLAGS += -D ALTCPU=1 -D PROJECTOR_NO_TEXTURES=1 -D HAVE_SINCOS=1
@@ -58,3 +60,4 @@ LDFLAGS += -L /opt/intel/compilers_and_libraries_2019/linux/mpi/intel64/lib/rele
 #LIBS += -Wl,--as-needed -l mpi -l fabric
 MPI_LIBS += -Wl,--as-needed -l mpi -l fabric
 endif
+FLTK_LIBS += -l fltk
